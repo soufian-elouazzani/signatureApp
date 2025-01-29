@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign File</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/sign.js" defer></script>
+</head>
+<body>
+    <div class="verify-container container">
+        <form id="verify-form" action="/sign" method="post" enctype="multipart/form-data">
+            <h2>Upload File for Signature</h2>
+            <div class="form-group">
+                <label for="file-upload">Choose file</label>
+                <input type="file" id="file-upload" name="file-upload" required>
+                <br>
+                <label for="key-upload">Choose Private key</label>
+                <input type="file" id="key-upload" name="key-upload" required>
+            </div>
+            <button type="submit">Upload and Sign</button>
+        </form>
+        <div id="message-success"></div>
+        <div id="document-download"></div>
+    </div>
+    
+</body>
+</html>
