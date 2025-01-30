@@ -1,13 +1,15 @@
-FROM node:14
+FROM node:19.9.0-alpine
+
+ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY ["package.json", "package-lock.json", "./"]
 
-RUN npm install
+RUN npm install --${NODE_ENV}
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 5000
 
 CMD ["node", "app.js"]
