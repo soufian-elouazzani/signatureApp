@@ -5,6 +5,9 @@ stages:
 variables:
   IMAGE_NAME: soufian1/signatureapp
 
+services:
+  - docker:19.03.12-dind
+
 before_script:
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
 
