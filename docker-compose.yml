@@ -1,13 +1,25 @@
 version: "3.8"
 
 services:
+  # vault:
+  #   image: hashicorp/vault:1.18
+  #   container_name: vault
+  #   restart: always
+  #   environment:
+  #     VAULT_DEV_ROOT_TOKEN_ID: root
+  #     VAULT_ADDR: http://0.0.0.0:8200
+  #   ports:
+  #     - "8200:8200"
+  #   cap_add:
+  #     - IPC_LOCK
+      
   mongodb:
     image: mongo:6.0-jammy
     container_name: mongodb_container
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: secret
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - "27017:27017"
     volumes:
@@ -20,11 +32,14 @@ services:
     environment:
       - SECRET_KEY=your_secret_key_here
       - PORT=5000
-      - MONGO_URI=mongodb://admin:secret@mongodb:27017/signatureapp?authSource=admin
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/signatureapp?authSource=admin
     ports:
       - "5000:5000"
+    volumes:
+      - .:/usr/src/app
     depends_on:
       - mongodb
+    command: sh -c "sleep 5 && node app.js"
 
 volumes:
   mongo_data:

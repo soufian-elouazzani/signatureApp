@@ -2,11 +2,28 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const authMiddleware = require("./middlewares/auth");
+const axios = require('axios');
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+// fetch secrets from vault and set them as environment variables
+
+// async function fetchSecrets() {
+//   const response = await axios.get('http://vault:8200/v1/secret/data/app', {
+//     headers: { 'X-Vault-Token': 'root' }
+//   });
+//   console.log("connected to vault")
+//   return response.data.data.data;
+// }
+
+// fetchSecrets().then(secrets => {
+//   process.env.MONGO_URI = secrets.MONGO_URI;
+// });
+
 
 // MongoDB Connection
 const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/mydatabase";
