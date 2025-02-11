@@ -1,4 +1,3 @@
----
 
 # **SignatureApp**  
 Application for signing files securely.  
